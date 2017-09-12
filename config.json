@@ -1,0 +1,42 @@
+{
+  "name": "serverless-sharp-image",
+  "provider": {
+    "profile": "flowmsp-dev",
+    "stage": "dev",
+    "region": "us-west-2"
+  },
+  "sourceBucket": "flowmsp-test-image-bucket2",
+  "sourcePrefix": "",
+  "destinationBucket": "flowmsp-test-image-bucket2",
+  "destinationPrefix": "processed/",
+  "s3": {
+    "params": {
+      "Metadata": {
+        "generator": "created by a serverless-sharp-image lambda function"
+      },
+      "ACL": "public-read"
+    }
+  },
+  "all": [
+    ["rotate"],
+    ["toFormat", "jpeg", { "quality": 80 }]
+  ],
+  "outputs": [
+    {
+      "key": "%(directory)s/%(filename)s-300h.jpg",
+      "operations": [
+        ["resize", null, 300],
+        ["max"],
+        ["withoutEnlargement"]
+      ]
+    },
+    {
+      "key": "%(directory)s/%(filename)s-1024h.jpg",
+      "operations": [
+        ["resize", null, 1024],
+        ["max"],
+        ["withoutEnlargement"]
+      ]
+    }
+  ]
+}
