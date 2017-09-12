@@ -10,7 +10,7 @@ export function makeKey (template, context) {
   }
 
   const crumbs = context.key.split('/')
-  const directory = crumbs.slice(0, crumbs.length - 1).join('/')
+  const directory = crumbs.slice(1, crumbs.length - 1).join('/')
   const filename = crumbs[crumbs.length - 1].split('.')[0]
   const values = {
     ...context,
